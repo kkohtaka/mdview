@@ -1,0 +1,3 @@
+[submodule "jni/discount"]
+	path = jni/discount
+	url = git@github.com:kohtaka/discount.git

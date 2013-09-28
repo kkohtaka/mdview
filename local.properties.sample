@@ -1,0 +1,5 @@
+# Copyright (c) 2013 Kazumasa Kohtaka. All rights reserved.
+# This file is available under the MIT license.
+
+sdk.dir=/path/to/android/sdk
+ndk.dir=/path/to/android/ndk
