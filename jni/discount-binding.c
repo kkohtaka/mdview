@@ -9,36 +9,24 @@
 #include "stdio.h"
 #include "discount/markdown.h"
 
-jstring convert_markdown_to_html(
-    JNIEnv *env,
-    const char *src,
-    int32_t len) {
-  char *dst = NULL;
-
-  Document *blob = mkd_string((char *)src, len, 0);
-  mkd_compile(blob, 0);
-  int size = mkd_document(blob, &dst);
-
-  if (size == 0) {
-    return NULL;
-  }
-
-  dst[size - 1] = 0;
-  return (*env)->NewStringUTF(env, dst);
-}
-
-jstring
-Java_org_kohtaka_app_mdview_DiscountBinding_convertMarkdownToHtml(
+jbyteArray
+Java_org_kohtaka_app_mdview_DiscountBinding_convertMarkdownToHtmlNative(
     JNIEnv *env,
     jobject thiz,
-    jstring markdown) {
-  const char *src = (*env)->GetStringUTFChars(env, markdown, NULL);
-  if (src == NULL) {
-    LOGE("Failed to GetStringUTFChars()");
-    return NULL;
-  }
-  jsize len = (*env)->GetStringLength(env, markdown);
+    jbyteArray markdown,
+    jsize md_length) {
+  char *dst = NULL;
 
-  return convert_markdown_to_html(env, src, len);
+  char *src = (char *)malloc(md_length);
+  (*env)->GetByteArrayRegion(env, markdown, 0, md_length, src);
+  Document *blob = mkd_string(src, md_length, 0);
+  free(src);
+
+  mkd_compile(blob, 0);
+  int html_length = mkd_document(blob, &dst);
+
+  jbyteArray result = (*env)->NewByteArray(env, html_length);
+  (*env)->SetByteArrayRegion(env, result, 0, html_length, dst);
+  return result;
 }
 
