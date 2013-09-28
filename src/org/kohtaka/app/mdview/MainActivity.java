@@ -11,6 +11,7 @@ import android.util.Log;
 import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import com.newrelic.agent.android.NewRelic;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -23,6 +24,10 @@ public class MainActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
+
+    NewRelic.withApplicationToken(
+        "AAc5adf1492268adea0775c1c544446c99f37083f6"
+    ).start(this.getApplication());
 
     try {
       showContent();
