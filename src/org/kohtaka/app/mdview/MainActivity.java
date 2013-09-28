@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import java.io.IOException;
@@ -73,6 +74,7 @@ public class MainActivity extends Activity {
         return true;
       }
     });
+    webView.getSettings().setTextSize(TextSize.SMALLEST);
     webView.loadDataWithBaseURL(
         "file:///android_asset/",
         htmlString,
@@ -84,7 +86,8 @@ public class MainActivity extends Activity {
   private String generateHtmlString(String bodyString) {
     return "<!DOCTYPE html>" +
         "<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />" +
-        "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">" +
+        "<meta name=\"viewport\" content=\"target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no\" />" +
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">" +
         bodyString;
   }
 }
