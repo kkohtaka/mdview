@@ -19,7 +19,7 @@ Java_org_kohtaka_app_mdview_DiscountBinding_convertMarkdownToHtmlNative(
 
   char *src = (char *)malloc(md_length);
   (*env)->GetByteArrayRegion(env, markdown, 0, md_length, src);
-  Document *blob = mkd_string(src, md_length, 0);
+  Document *blob = gfm_string(src, md_length, 0);
   free(src);
 
   mkd_compile(blob, 0);

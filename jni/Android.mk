@@ -9,6 +9,7 @@ LOCAL_SRC_FILES := \
 	discount/Csio.c \
 	discount/emmatch.c \
 	discount/generate.c \
+	discount/github_flavoured.c \
 	discount/markdown.c \
 	discount/mkdio.c \
 	discount/resource.c \
